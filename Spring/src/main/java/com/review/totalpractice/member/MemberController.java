@@ -6,6 +6,7 @@ import com.review.totalpractice.exception.ExceptionCode;
 import com.review.totalpractice.member.dto.MemberPatchDto;
 import com.review.totalpractice.member.dto.MemberPostDto;
 import com.review.totalpractice.member.entity.Member;
+import com.review.totalpractice.stamp.Stamp;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,6 +34,7 @@ public class MemberController {
     public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto) {
 
         Member member = mapper.MemberPostDtoToMember(memberPostDto);
+        member.setStamp(new Stamp());
         Member response = memberService.createMember(member);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
